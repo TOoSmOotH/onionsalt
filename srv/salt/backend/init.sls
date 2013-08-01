@@ -26,3 +26,8 @@ securityonion-all:
 /srv/salt/sensor/rules:
    file.symlink:
      - target: /etc/nsm/rules
+
+# Create the cron for the back end to check in.
+/etc/cron.d/salt-update:
+    file.managed:
+       - source: salt://backend/cron/salt-update
