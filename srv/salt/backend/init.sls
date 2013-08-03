@@ -39,7 +39,7 @@ securityonion-all:
       file.directory:
         - makedirs: True
 
-/etc/nsm/rule/bro:
+/etc/nsm/rules/bro:
     file.symlink:
        - target: /opt/bro/share/bro/policy
        - require: 
