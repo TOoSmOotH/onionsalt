@@ -27,6 +27,24 @@ securityonion-all:
    file.symlink:
      - target: /etc/nsm/rules
 
+# Create the symlink for bro rules to be synced. 
+/srv/salt/sensor/bro:
+    file.symlink:
+      - target: /opt/bro/share/bro/policy
+
+# Create the symlink to manage bro stuff easier
+# First create the directory
+
+/src/salt/sensor/bro:
+      file.directory:
+        - makedirs: True
+
+/etc/nsm/rule/bro:
+    file.symlink:
+       - target: /opt/bro/share/bro/policy
+       - require: 
+         - file.directory: /src/salt/sensor/bro      
+
 # Create the cron for the back end to check in.
 /etc/cron.d/salt-update:
     file.managed:

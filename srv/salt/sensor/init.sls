@@ -34,6 +34,11 @@ nsm-sensor:
      - maxdepth: 0
      - source: salt://sensor/rules
 
+# Sync Bro Rules
+/opt/bro/share/bro/policy:
+    file.recurse:
+       - source: salt://sensor/bro/policy
+    
 # Get rid of the old cron job that updates rules because we don't need it any more
 
 /etc/cron.d/rule-update:
