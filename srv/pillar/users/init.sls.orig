@@ -17,7 +17,8 @@
 #        home: /home/sensordude
 #        uid: 4000
 #        gid: 4000
-#        optional_groups: sudo
+#        groups: 
+#         - sudo
 #
 #
 # Below is the minimum you need to configure. Change below
@@ -25,7 +26,8 @@
 #users:
 #   sensordude:
 #      fullname: Sensor Dude
-#      optional_groups: sudo
+#      groups:
+#       - sudo
 
 # If you already have a user on all servers called joeadmin (Usually the account you 
 # created on the onion install) still add them so the keys get copied
@@ -35,4 +37,5 @@
 #          fullname: Joe Admin
 #      sensordude:
 #          fullname: Sensor Dude
-#          optional_groups: sudo
+#          groups:
+#           - sudo
