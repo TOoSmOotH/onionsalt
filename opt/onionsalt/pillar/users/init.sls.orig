@@ -1,6 +1,6 @@
 ###########################
 ##                       ##
-##  User Pillar ini.sls  ##
+##  User Pillar init.sls  ##
 ##                       ##
 ###########################
 
@@ -18,11 +18,7 @@
 #        uid: 4000
 #        gid: 4000
 #        groups: 
-<<<<<<< HEAD:srv/pillar/users/init.sls.orig
 #          - sudo
-=======
-#         - sudo
->>>>>>> dev:opt/onionsalt/pillar/users/init.sls.orig
 #
 #
 # Below is the minimum you need to configure. Change below
@@ -30,13 +26,8 @@
 #users:
 #   sensordude:
 #      fullname: Sensor Dude
-<<<<<<< HEAD:srv/pillar/users/init.sls.orig
 #        groups:
 #          - sudo
-=======
-#      groups:
-#       - sudo
->>>>>>> dev:opt/onionsalt/pillar/users/init.sls.orig
 
 # If you already have a user on all servers called joeadmin (Usually the account you 
 # created on the onion install) still add them so the keys get copied
@@ -47,8 +38,4 @@
 #      sensordude:
 #          fullname: Sensor Dude
 #          groups:
-<<<<<<< HEAD:srv/pillar/users/init.sls.orig
 #            - sudo
-=======
-#           - sudo
->>>>>>> dev:opt/onionsalt/pillar/users/init.sls.orig
