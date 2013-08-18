@@ -24,19 +24,19 @@ securityonion-all:
 
 # Create the symlink for the rules files.
 
-/srv/salt/sensor/rules:
+/opt/onionsalt/salt/sensor/rules:
    file.symlink:
      - target: /etc/nsm/rules
 
 # Create the symlink for bro rules to be synced. 
 
-/srv/salt/sensor/bro/policy:
+/opt/onionsalt/salt/sensor/bro/policy:
    file.symlink:
       - target: /opt/bro/share/bro/policy
       - require:
         - file.directory: /srv/salt/sensor/bro
 
-/srv/salt/sensor/bro:
+/opt/onionsalt/salt/sensor/bro:
       file.directory:
         - makedirs: True
 
