@@ -30,14 +30,14 @@ securityonion-sensor:
      - source: salt://sensor/rules
 
 restart-ids:
-  cmd.wait
+  cmd.wait:
     - name: /usr/sbin/nsm_sensor_ps-restart --only-snort-alert
     - cwd: /
     - watch:
       - file: /etc/nsm/rules
       
 restart-barnyard:
-  cmd.wait
+  cmd.wait:
     - name: /usr/sbin/nsm_sensor_ps-restart --only-barnyard2
     - cwd: /
     - watch:
