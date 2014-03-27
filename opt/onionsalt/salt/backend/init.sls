@@ -44,7 +44,13 @@ securityonion-all:
 
 /etc/nsm/rules/bro:
     file.symlink:
-       - target: /opt/bro/share/bro/policy  
+       - target: /opt/bro/share/bro/policy
+       
+# Create the symlink for OSSEC rules to be synced
+
+/opt/onionsalt/salt/sensor/ossec:
+   file.symlink:
+      - target: /var/ossec/rules
 
 # Create the cron for the back end to check in.
 
