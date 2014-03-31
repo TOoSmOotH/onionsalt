@@ -59,6 +59,7 @@ restart-bro:
 
 /var/ossec/rules:
   file.recurse:
+    - maxdepth: 0
     - source: salt://sensor/ossec
 
 restart-ossec:
