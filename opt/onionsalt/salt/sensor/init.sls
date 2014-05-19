@@ -23,8 +23,9 @@ securityonion-sensor:
 
 # Watch the Rules and restart when needed
 
-/etc/nsm/rules:
+rule-sync:
    file.recurse:
+     - name: /etc/nsm/rules
      # Don't mess with maxdepth or you will go on a recursed loop of pain
      - maxdepth: 0
      - source: salt://sensor/rules
@@ -44,21 +45,43 @@ restart-barnyard:
       - file: /etc/nsm/rules
       
 # Sync Bro Rules
-/opt/bro/share/bro/policy:
+
+bro-rules-sync:
     file.recurse:
+       - name: /opt/bro/share/bro/policy
        - source: salt://sensor/bro/policy
 
-restart-bro:
+restart-bro-4-policy:
   cmd.wait:
     - name: /opt/bro/bin/broctl install; /opt/bro/bin/broctl restart
     - cwd: /
     - watch:
       - file: /opt/bro/share/bro/policy
 
+# Bro Intel Feed
+#bro-intel:
+#   file.directory:
+#     - name: /opt/bro/share/bro/intel
+#     - makedirs: True
+
+#bro-intel-sync:
+#    file.recurse:
+#       - name: /opt/bro/share/bro/intel
+#       - source: salt://sensor/bro/intel
+#
+#restart-bro-4-intel:
+#  cmd.wait:
+#    - name: /opt/bro/bin/broctl install; /opt/bro/bin/broctl restart
+#    - cwd: /
+#    - watch:
+#      - file: /opt/bro/share/bro/intel
+
+
 # Watch the OSSEC local_rules.xml file and restart when needed
 
-/var/ossec/rules:
+ossec-sync:
   file.recurse:
+    - name: /var/ossec/rules
     - maxdepth: 0
     - source: salt://sensor/ossec
 
@@ -76,6 +99,23 @@ restart-ossec:
 
 # Put our new cron job up in there
 
-/etc/cron.d/salt-update:
+cron-update-salt-checkin:
     file.managed:
+       - name: /etc/cron.d/salt-update
        - source: salt://sensor/cron/salt-update
+
+
+# Enable the Bro Intel Framework
+# Uncomment to enable
+#/opt/bro/share/bro/site/local.bro:
+#  file.blockreplace:
+#    - marker_start: "# Begin Onionsalt Awesomeness.. If you edit this do so on the Onionsalt master"
+#    - marker_end: "# DONE Onionsalt Awesomeness"
+#    - content: |
+#         @load policy/frameworks/intel/seen
+#         @load frameworks/intel/do_notice
+#         redef Intel::read_files += {
+#                 "/opt/bro/share/bro/intel/YOURINTELFILE.intel"
+#         };
+#    - show_changes: True
+#    - append_if_not_found: True
