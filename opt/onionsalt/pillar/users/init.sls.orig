@@ -35,6 +35,8 @@
 #users:
 #      joeadmin:
 #          fullname: Joe Admin
+#          groups:
+#            - sudo
 #      sensordude:
 #          fullname: Sensor Dude
 #          groups:
