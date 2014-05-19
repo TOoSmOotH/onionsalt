@@ -28,32 +28,52 @@ securityonion-all:
    file.symlink:
      - target: /etc/nsm/rules
 
+# Create Directory for Bro intel stuff
+
+brointel:
+   file.directory:
+     - name: /opt/bro/share/intel
+     - makedirs: True
+
+# Create Bro directory for syncing stuff
+
+brosync:
+   file.directory:   
+     - name: /opt/onionsalt/salt/sensor/bro
+     - makedirs: True
+
 # Create the symlink for bro rules to be synced. 
 
-/opt/onionsalt/salt/sensor/bro/policy:
+bropolicysync:
    file.symlink:
+      - name: /opt/onionsalt/salt/sensor/bro/policy
       - target: /opt/bro/share/bro/policy
-      - require:
-        - file.directory: /srv/salt/sensor/bro
+      
+# Create the symlink for bro intel to be synced
 
-/opt/onionsalt/salt/sensor/bro:
-      file.directory:
-        - makedirs: True
-
+brointelsync:
+   file.symlink:
+      - name: /opt/onionsalt/salt/sensor/bro/intel
+      - target: /opt/bro/share/bro/intel
+      
 # Create the symlink to manage bro stuff easier
 
-/etc/nsm/rules/bro:
+easyrules:
     file.symlink:
+       - name: /etc/nsm/rules/bro
        - target: /opt/bro/share/bro/policy
+
        
 # Create the symlink for OSSEC rules to be synced
 
-/opt/onionsalt/salt/sensor/ossec:
+ossecsync:
    file.symlink:
-      - target: /var/ossec/rules
+       - name: /opt/onionsalt/salt/sensor/ossec
+       - target: /var/ossec/rules
 
 # Create the cron for the back end to check in.
 
-/etc/cron.d/salt-update:
+backendcron:
     file.managed:
+       - name: /etc/cron.d/salt-update
        - source: salt://backend/cron/salt-update
