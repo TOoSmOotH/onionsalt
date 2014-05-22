@@ -51,12 +51,13 @@ bro-rules-sync:
        - name: /opt/bro/share/bro/policy
        - source: salt://sensor/bro/policy
 
-restart-bro-4-policy:
-  cmd.wait:
-    - name: /opt/bro/bin/broctl install; /opt/bro/bin/broctl restart
-    - cwd: /
-    - watch:
-      - file: /opt/bro/share/bro/policy
+#Disabled until a wrapper is created
+#restart-bro-4-policy:
+#  cmd.wait:
+#    - name: /opt/bro/bin/broctl install; /opt/bro/bin/broctl restart
+#    - cwd: /
+#    - watch:
+#      - file: /opt/bro/share/bro/policy
 
 # Bro Intel Feed
 #bro-intel:
