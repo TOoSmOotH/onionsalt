@@ -9,4 +9,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Call home every 15 minutes looking for changes. You can tweak this to whatever.
 
-*/15 * * * * root /usr/bin/salt-call state.highstate 
+*/15 * * * * root /usr/bin/salt-call state.highstate >/dev/null 2>&1
