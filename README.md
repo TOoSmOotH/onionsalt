@@ -5,6 +5,11 @@ Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multipl
 
 Changelog:
 
+Version 1.1.1:
+	- Renamed files from .orig to .template
+	- Fixed some spelling errors in the code
+
+
 Version 1.1.0:
 
 	- Added support for latest version of Saltstack 2014.1.4
