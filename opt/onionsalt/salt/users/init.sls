@@ -1,6 +1,6 @@
 ############################
 ##                        ##
-##     Users ini.sls      ##
+##     Users init.sls     ##
 ##                        ##
 ############################
 
@@ -34,7 +34,7 @@ ssh.keydir.{{ username }}:
          - group: {{ username }}
          - mode: 700
 
-# Now create the key from the file you creates in the /srv/salt/users/keys 
+# Now create the key from the file you created in /opt/onionsalt/salt/users/keys
 /home/{{ username }}/.ssh/authorized_keys:
     file.managed:
        - source: salt://users/keys/{{ username }}.id_rsa.pub
