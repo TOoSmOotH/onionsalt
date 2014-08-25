@@ -31,16 +31,18 @@
 
 {% for interface in grains['sensor_interfaces'] %}
 {% set sensorname = '{0}-{1}'.format(nodename, interface) %}
-/etc/nsm/{{ sensorname }}/bpf.conf:
+bpfsync-{{ sensorname }}:
   file.managed:
+    - name: /etc/nsm/{{ sensorname }}/bpf.conf
     - source:
       - salt://sensor/bpf/{{ nodename }}/{{ interface }}bpf.conf
       - salt://sensor/bpf/{{ nodename }}/bpf.conf
       - salt://sensor/bpf/bpf.conf
 
 {% for serv in ['bro', 'ids', 'pcap', 'prads'] %}
-/etc/nsm/{{ sensorname }}/bpf-{{ serv }}.conf:
+bpfsync-{{ sensorname }}-{{ serv }}:
   file.managed:
+    - name: /etc/nsm/{{ sensorname }}/bpf-{{ serv }}.conf
     - source:
       - salt://sensor/bpf/{{ nodename }}/{{ interface }}/bpf-{{ serv }}.conf
       - salt://sensor/bpf/{{ nodename }}/bpf-{{ serv }}.conf
