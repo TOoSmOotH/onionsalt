@@ -4,6 +4,10 @@
 ##               ##
 ###################
 
+# Uncomment to enable central bpf_configuration. Be sure to read ./bpf/init.slt
+#include:
+#- .bpf
+
 # Add the Repo
 sensor:
   pkgrepo.managed:
