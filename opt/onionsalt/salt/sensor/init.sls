@@ -21,6 +21,8 @@ sensor:
 securityonion-sensor:
    pkg.installed
 
+## Begin IDS Section ##
+
 # Watch the Rules and restart when needed
 
 rule-sync:
@@ -43,7 +45,11 @@ restart-barnyard:
     - cwd: /
     - watch:
       - file: /etc/nsm/rules
-      
+
+## End IDS Section
+
+## Begin Bro Section ##
+
 # Sync Bro Rules
 
 bro-rules-sync:
@@ -51,32 +57,43 @@ bro-rules-sync:
        - name: /opt/bro/share/bro/policy
        - source: salt://sensor/bro/policy
 
-#Disabled until a wrapper is created
-#restart-bro-4-policy:
-#  cmd.wait:
-#    - name: /opt/bro/bin/broctl install; /opt/bro/bin/broctl restart
-#    - cwd: /
-#    - watch:
-#      - file: /opt/bro/share/bro/policy
-
 # Bro Intel Feed
-#bro-intel:
-#   file.directory:
-#     - name: /opt/bro/share/bro/intel
-#     - makedirs: True
+bro-intel:
+   file.directory:
+     - name: /opt/bro/share/bro/intel
+     - makedirs: True
 
-#bro-intel-sync:
-#    file.recurse:
-#       - name: /opt/bro/share/bro/intel
-#       - source: salt://sensor/bro/intel
-#
-#restart-bro-4-intel:
-#  cmd.wait:
-#    - name: /opt/bro/bin/broctl install; /opt/bro/bin/broctl restart
-#    - cwd: /
-#    - watch:
-#      - file: /opt/bro/share/bro/intel
+bro-intel-sync:
+    file.recurse:
+       - name: /opt/bro/share/bro/intel
+       - source: salt://sensor/bro/intel
 
+# Enable the Bro Intel Framework
+# Uncomment to enable
+/opt/bro/share/bro/site/local.bro:
+  file.blockreplace:
+    - marker_start: "# Begin Onionsalt Awesomeness.. If you edit this do so on the Onionsalt master"
+    - marker_end: "# DONE Onionsalt Awesomeness"
+    - content: |
+         @load policy/frameworks/intel/seen
+         @load frameworks/intel/do_notice
+         redef Intel::read_files += {
+                 "/opt/bro/share/bro/intel/YOURINTELFILE.intel"
+         };
+    - show_changes: True
+    - append_if_not_found: True
+	  restart-bro:
+    cmd.wait:
+      - name: /opt/bro/bin/broctl stop && sleep 30 && /opt/bro/bin/broctl install && sleep 20 && /opt/bro/bin/broctl start
+      - cwd: /
+      - watch:
+      - file: /opt/bro/share/bro/policy
+      - file: /opt/bro/share/bro/intel
+      - file: /opt/bro/share/bro/site
+
+## End Bro Section ##
+
+## Begin OSSEC Section ##
 
 # Watch the OSSEC local_rules.xml file and restart when needed
 
@@ -93,6 +110,7 @@ restart-ossec:
     - watch:
       - file: /var/ossec/rules
       
+## End OSSEC Section ##
 # Get rid of the old cron job that updates rules because we don't need it any more
 
 /etc/cron.d/rule-update:
@@ -104,19 +122,3 @@ cron-update-salt-checkin:
     file.managed:
        - name: /etc/cron.d/salt-update
        - source: salt://sensor/cron/salt-update
-
-
-# Enable the Bro Intel Framework
-# Uncomment to enable
-#/opt/bro/share/bro/site/local.bro:
-#  file.blockreplace:
-#    - marker_start: "# Begin Onionsalt Awesomeness.. If you edit this do so on the Onionsalt master"
-#    - marker_end: "# DONE Onionsalt Awesomeness"
-#    - content: |
-#         @load policy/frameworks/intel/seen
-#         @load frameworks/intel/do_notice
-#         redef Intel::read_files += {
-#                 "/opt/bro/share/bro/intel/YOURINTELFILE.intel"
-#         };
-#    - show_changes: True
-#    - append_if_not_found: True

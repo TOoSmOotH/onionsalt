@@ -30,10 +30,10 @@ securityonion-all:
 
 # Create Directory for Bro intel stuff
 
-#brointel:
-#   file.directory:
-#     - name: /opt/bro/share/bro/intel
-#     - makedirs: True
+brointel:
+   file.directory:
+     - name: /opt/bro/share/bro/intel
+     - makedirs: True
 
 # Create Bro directory for syncing stuff
 
@@ -51,10 +51,10 @@ bropolicysync:
       
 # Create the symlink for bro intel to be synced
 
-#brointelsync:
-#   file.symlink:
-#      - name: /opt/onionsalt/salt/sensor/bro/intel
-#      - target: /opt/bro/share/bro/intel
+brointelsync:
+   file.symlink:
+      - name: /opt/onionsalt/salt/sensor/bro/intel
+      - target: /opt/bro/share/bro/intel
       
 # Create the symlink to manage bro stuff easier
 
