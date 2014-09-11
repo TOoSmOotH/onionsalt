@@ -6,6 +6,7 @@ Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multipl
 Changelog:
 
 Version 1.1.2:
+        
         - Enabled the Bro Intel Framework
         - Fixed the restart process for Bro when a policy changes
         
