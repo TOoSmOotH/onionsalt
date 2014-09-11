@@ -4,6 +4,10 @@
 ##               ##
 ###################
 
+# Uncomment to enable central bpf_configuration. Be sure to read ./bpf/init.slt
+#include:
+#- .bpf
+
 # Add the Repo
 sensor:
   pkgrepo.managed:
@@ -69,7 +73,7 @@ bro-intel-sync:
        - source: salt://sensor/bro/intel
 
 # Enable the Bro Intel Framework
-# Uncomment to enable
+
 /opt/bro/share/bro/site/local.bro:
   file.blockreplace:
     - marker_start: "# Begin Onionsalt Awesomeness.. If you edit this do so on the Onionsalt master"
@@ -122,3 +126,22 @@ cron-update-salt-checkin:
     file.managed:
        - name: /etc/cron.d/salt-update
        - source: salt://sensor/cron/salt-update
+<<<<<<< HEAD
+=======
+
+
+# Enable the Bro Intel Framework
+# Uncomment to enable
+#/opt/bro/share/bro/site/local.bro:
+#  file.blockreplace:
+#    - marker_start: "# Begin Onionsalt Awesomeness.. If you edit this do so on the Onionsalt master"
+#    - marker_end: "# DONE Onionsalt Awesomeness"
+#    - content: |
+#         @load policy/frameworks/intel/seen
+#         @load frameworks/intel/do_notice
+#         redef Intel::read_files += {
+#                 "/opt/bro/share/bro/intel/YOURINTELFILE.intel"
+#         };
+#    - show_changes: True
+#    - append_if_not_found: True
+>>>>>>> FETCH_HEAD
