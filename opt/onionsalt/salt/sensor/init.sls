@@ -4,7 +4,7 @@
 ##               ##
 ###################
 
-# Uncomment to enable central bpf_configuration. Be sure to read ./bpf/init.slt
+# Uncomment to enable central bpf_configuration. Be sure to read ./bpf/init.sls
 #include:
 #- .bpf
 
@@ -54,7 +54,7 @@ restart-barnyard:
 
 ## Begin Bro Section ##
 
-# Sync Bro Rules
+# Sync Bro policy scripts
 
 bro-rules-sync:
     file.recurse:
@@ -62,6 +62,7 @@ bro-rules-sync:
        - source: salt://sensor/bro/policy
 
 # Bro Intel Feed
+
 bro-intel:
    file.directory:
      - name: /opt/bro/share/bro/intel
@@ -74,26 +75,26 @@ bro-intel-sync:
 
 # Enable the Bro Intel Framework
 
-/opt/bro/share/bro/site/local.bro:
-  file.blockreplace:
-    - marker_start: "# Begin Onionsalt Awesomeness.. If you edit this do so on the Onionsalt master"
-    - marker_end: "# DONE Onionsalt Awesomeness"
-    - content: |
-         @load policy/frameworks/intel/seen
-         @load frameworks/intel/do_notice
-         redef Intel::read_files += {
-                 "/opt/bro/share/bro/intel/YOURINTELFILE.intel"
-         };
-    - show_changes: True
-    - append_if_not_found: True
-	  restart-bro:
-    cmd.wait:
-      - name: /opt/bro/bin/broctl stop && sleep 30 && /opt/bro/bin/broctl install && sleep 20 && /opt/bro/bin/broctl start
-      - cwd: /
-      - watch:
-      - file: /opt/bro/share/bro/policy
-      - file: /opt/bro/share/bro/intel
-      - file: /opt/bro/share/bro/site
+# Commenting out since we're doing this in securityonion-bro-scripts now
+#/opt/bro/share/bro/site/local.bro:
+#  file.blockreplace:
+#    - marker_start: "# BEGIN Onionsalt Modications. If you edit this, do so on the Onionsalt master"
+#    - marker_end: "# END Onionsalt Modifications."
+#    - content: |
+#         @load intel
+#    - show_changes: True
+#    - append_if_not_found: True
+
+# Commenting out restart-bro since Seth wrote an Intel Whitelisting script:
+# https://github.com/sethhall/intel-ext
+#restart-bro:
+#    cmd.wait:
+#      - name: /opt/bro/bin/broctl stop && sleep 30 && /opt/bro/bin/broctl install && sleep 20 && /opt/bro/bin/broctl start
+#      - cwd: /
+#      - watch:
+#      - file: /opt/bro/share/bro/policy
+#      - file: /opt/bro/share/bro/intel
+#      - file: /opt/bro/share/bro/site
 
 ## End Bro Section ##
 
@@ -101,11 +102,25 @@ bro-intel-sync:
 
 # Watch the OSSEC local_rules.xml file and restart when needed
 
-ossec-sync:
+ossec-rules:
   file.recurse:
     - name: /var/ossec/rules
     - maxdepth: 0
-    - source: salt://sensor/ossec
+    - source: salt://sensor/ossec-rules
+
+ossec-agent-conf:
+  file.managed:
+    - name: /var/ossec/etc/shared/agent.conf
+    - source: salt://sensor/ossec-etc/shared/agent.conf
+    - user: root
+    - group: ossec
+
+ossec-local-decoder:
+  file.managed:
+    - name: /var/ossec/etc/local_decoder.xml
+    - source: salt://sensor/ossec-etc/local_decoder.xml
+    - user: root
+    - group: ossec
 
 restart-ossec:
   cmd.wait:
@@ -113,8 +128,11 @@ restart-ossec:
     - cwd: /
     - watch:
       - file: /var/ossec/rules
+      - file: /var/ossec/etc/shared/agent.conf
+      - file: /var/ossec/etc/local_decoder.xml
       
 ## End OSSEC Section ##
+
 # Get rid of the old cron job that updates rules because we don't need it any more
 
 /etc/cron.d/rule-update:

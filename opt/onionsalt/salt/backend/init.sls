@@ -22,54 +22,76 @@ backend:
 securityonion-all:
    pkg.installed
 
-# Create the symlink for the rules files.
+# Create the symlink to replicate /etc/nsm/rules/
 
 /opt/onionsalt/salt/sensor/rules:
    file.symlink:
      - target: /etc/nsm/rules
 
-# Create Directory for Bro intel stuff
+# Create directory for Bro intel feeds
 
 brointel:
    file.directory:
      - name: /opt/bro/share/bro/intel
      - makedirs: True
 
-# Create Bro directory for syncing stuff
+# Create directory for syncing Bro stuff
 
 brosync:
    file.directory:   
      - name: /opt/onionsalt/salt/sensor/bro
      - makedirs: True
 
-# Create the symlink for bro rules to be synced. 
+# Create the symlink for syncing Bro policy scripts
 
 bropolicysync:
    file.symlink:
       - name: /opt/onionsalt/salt/sensor/bro/policy
       - target: /opt/bro/share/bro/policy
       
-# Create the symlink for bro intel to be synced
+# Create the symlink for Bro intel to be synced
 
 brointelsync:
    file.symlink:
       - name: /opt/onionsalt/salt/sensor/bro/intel
       - target: /opt/bro/share/bro/intel
       
-# Create the symlink to manage bro stuff easier
+# Create the symlink to manage Bro stuff easier
 
 easyrules:
     file.symlink:
        - name: /etc/nsm/rules/bro
        - target: /opt/bro/share/bro/policy
 
-       
 # Create the symlink for OSSEC rules to be synced
 
-ossecsync:
+ossec-rules:
    file.symlink:
-       - name: /opt/onionsalt/salt/sensor/ossec
+       - name: /opt/onionsalt/salt/sensor/ossec-rules
        - target: /var/ossec/rules
+
+# Create the symlink for OSSEC config to be synced
+ 
+ossec-etc:
+   file.symlink:
+       - name: /opt/onionsalt/salt/sensor/ossec-etc
+       - target: /var/ossec/etc
+
+# Create /var/ossec/etc/shared/agent.conf if it doesn't already exist
+
+ossec-agent-conf:
+   file.managed:
+       - name: /var/ossec/etc/shared/agent.conf
+       - user: root
+       - group: ossec
+
+# Create /var/ossec/etc/local_decoder.xml if it doesn't already exist
+
+ossec-local-decoder:
+   file.managed:
+       - name: /var/ossec/etc/local_decoder.xml
+       - user: root
+       - group: ossec
 
 # Create the cron for the back end to check in.
 
