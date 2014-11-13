@@ -5,13 +5,18 @@
 ###################
 
 ################################################################################
-# This configuration relies on a custom grain being on each of the individual
-# sensors. Create a custom grain in /etc/salt/grains on each sensor with the
-# following content -
+# This configuration makes the following assumptions -
 #
-# sensor_interfaces:
-#   - <monitoring interface_1>
-#   - <monitoring interface_2>
+#   - All interfaces on your machine have a /etc/nsm/$HOSTNAME-$INTERFACE
+#   configuration folder.
+#
+#   - If NOT - you have specified a custom grain called 'sensor_interfaces'
+#   which is a list of the sensor interfaces that have been configured, example
+#   below.
+#
+#   sensor_interfaces:
+#     - <monitoring interface_1>
+#     - <monitoring interface_2>
 #
 # This salt code will use this list of interfaces to create the appropiate
 # bpf.conf files.
@@ -29,8 +34,18 @@
 
 {% set nodename = grains['nodename'] %}
 
-{% for interface in grains['sensor_interfaces'] %}
+{% if grains['sensor_interfaces'] is defined %}
+{% set sensor_interfaces = grains['sensor_interfaces'] %}
+{% else %}
+{% set sensor_interfaces = grains['ip_interfaces'].iterkeys()|list %}
+{% endif %}
+
+{% for interface in sensor_interfaces %}
+
+{% if interface not in ['lo'] %}
+
 {% set sensorname = '{0}-{1}'.format(nodename, interface) %}
+
 bpfsync-{{ sensorname }}:
   file.managed:
     - name: /etc/nsm/{{ sensorname }}/bpf.conf
@@ -49,5 +64,7 @@ bpfsync-{{ sensorname }}-{{ serv }}:
       - salt://sensor/bpf/{{ nodename }}/bpf.conf
       - salt://sensor/bpf/bpf-{{ serv }}.conf
       - salt://sensor/bpf/bpf.conf
+
 {% endfor %}
+{% endif %}
 {% endfor %}
