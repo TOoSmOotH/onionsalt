@@ -6,6 +6,7 @@ Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multipl
 Changelog:
 
 Version 1.1.4:
+
 	- Minor modification to how the bpf management gets a list of interfaces to
 	  use - see /opt/onionsalt/salt/sensor/bpf/init.sls
 
