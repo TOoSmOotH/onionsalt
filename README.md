@@ -1,13 +1,20 @@
 OnionSalt
 =========
 
-Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multiple Security Onion sensors. 
+Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multiple [Security Onion](https://code.google.com/p/security-onion/) sensors.
 
-Changelog:
+For more details on using OnionSalt in your Security Onion see the [Security Onion wiki](https://code.google.com/p/security-onion/wiki/Salt).
+
+### Resources
+- Mike Reeves ([TOoSmOotH](https://twitter.com/TOoSmOotH)) BSides August 2014 Talk - [Scaling Security Onion to the Enterprise](https://www.youtube.com/watch?v=hHhxVQxj3aY)
+- [Security Onion Blog](http://blog.securityonion.net/) and the related [OnionSalt Blog Posts](http://blog.securityonion.net/search/label/onionsalt)
+
+### Changlog
 
 Version 1.1.4:
+
 	- Minor modification to how the bpf management gets a list of interfaces to
-	  use - see /opt/onionsalt/salt/sensor/bpf/init.sls
+	  use - see opt/onionsalt/salt/sensor/bpf/init.sls
 
 Version 1.1.3:
 
@@ -34,4 +41,3 @@ Version 1.1.0:
 Version 1.0.0
 
 	- Initial Release. 
-
