@@ -28,6 +28,12 @@ securityonion-all:
    file.symlink:
      - target: /etc/nsm/rules
 
+# Create the symlink to replicate /usr/local/lib/snort_dynamicrules/
+
+/opt/onionsalt/salt/sensor/snort_dynamicrules:
+   file.symlink:
+     - target: /usr/local/lib/snort_dynamicrules/
+
 # Create directory for Bro intel feeds
 
 brointel:

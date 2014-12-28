@@ -36,12 +36,20 @@ rule-sync:
      - maxdepth: 0
      - source: salt://sensor/rules
 
+dynamicrule-sync:
+   file.recurse:
+     - name: /usr/local/lib/snort_dynamicrules
+     # Don't mess with maxdepth or you will go on a recursed loop of pain
+     - maxdepth: 0
+     - source: salt://sensor/snort_dynamicrules
+
 restart-ids:
   cmd.wait:
     - name: /usr/sbin/nsm_sensor_ps-restart --only-snort-alert
     - cwd: /
     - watch:
       - file: /etc/nsm/rules
+      - file: /usr/local/lib/snort_dynamicrules
       
 restart-barnyard:
   cmd.wait:
@@ -49,6 +57,7 @@ restart-barnyard:
     - cwd: /
     - watch:
       - file: /etc/nsm/rules
+      - file: /usr/local/lib/snort_dynamicrules
 
 ## End IDS Section
 
