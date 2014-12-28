@@ -11,6 +11,10 @@ For more details on using OnionSalt in your Security Onion see the [Security Oni
 
 ### Changlog
 
+Version 1.1.5:
+
+	- Sync Snort VRT .so files from /usr/local/lib/snort_dynamicrules
+
 Version 1.1.4:
 
 	- Minor modification to how the bpf management gets a list of interfaces to
