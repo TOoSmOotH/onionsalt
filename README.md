@@ -3,13 +3,17 @@ OnionSalt
 
 Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multiple [Security Onion](https://code.google.com/p/security-onion/) sensors.
 
-For more details on using OnionSalt in your Security Onion see the [Security Onion wiki](https://code.google.com/p/security-onion/wiki/Salt).
+For more details on using OnionSalt in your Security Onion deployment, please see the [Security Onion wiki](https://code.google.com/p/security-onion/wiki/Salt).
 
 ### Resources
 - Mike Reeves ([TOoSmOotH](https://twitter.com/TOoSmOotH)) BSides August 2014 Talk - [Scaling Security Onion to the Enterprise](https://www.youtube.com/watch?v=hHhxVQxj3aY)
 - [Security Onion Blog](http://blog.securityonion.net/) and the related [OnionSalt Blog Posts](http://blog.securityonion.net/search/label/onionsalt)
 
-### Changlog
+### Changelog
+
+Version 1.1.6:
+
+	- Create /usr/local/lib/snort_dynamicrules if it doesn't already exist
 
 Version 1.1.5:
 

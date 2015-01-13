@@ -28,6 +28,13 @@ securityonion-all:
    file.symlink:
      - target: /etc/nsm/rules
 
+# Create directory /usr/local/lib/snort_dynamicrules/ if it doesn't already exist
+
+snort_dynamicrules:
+   file.directory:
+     - name: /usr/local/lib/snort_dynamicrules/
+     - makedirs: True
+
 # Create the symlink to replicate /usr/local/lib/snort_dynamicrules/
 
 /opt/onionsalt/salt/sensor/snort_dynamicrules:
