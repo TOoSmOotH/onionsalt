@@ -4,6 +4,6 @@
 ##                                                        ##
 ############################################################
 
-hostname:
-    TEMPLATE
-    
+sensorstuff:
+    hostname: TEMPLATE
+    cskey: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
