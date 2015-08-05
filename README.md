@@ -11,6 +11,11 @@ For more details on using OnionSalt in your Security Onion deployment, please se
 
 ### Changelog
 
+Version 1.1.7:
+
+        - Dedicated master skeleton. more to come on this one
+        - Ability to roll Critical Stack Intel Client to all sensor nodes
+        
 Version 1.1.6:
 
 	- Create /usr/local/lib/snort_dynamicrules if it doesn't already exist
