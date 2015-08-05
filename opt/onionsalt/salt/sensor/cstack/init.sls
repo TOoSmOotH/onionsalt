@@ -4,4 +4,4 @@
 ##                                     ##
 #########################################
 
-# Add the Repo
+# Run the install script.
