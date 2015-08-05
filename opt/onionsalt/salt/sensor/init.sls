@@ -8,6 +8,11 @@
 #include:
 #- .bpf
 
+# Create the state directory
+statedir:
+  file.directory:
+    - name: /etc/state
+
 # Add the Repo
 sensor:
   pkgrepo.managed:
@@ -50,7 +55,7 @@ restart-ids:
     - watch:
       - file: /etc/nsm/rules
       - file: /usr/local/lib/snort_dynamicrules
-      
+
 restart-barnyard:
   cmd.wait:
     - name: /usr/sbin/nsm_sensor_ps-restart --only-barnyard2
@@ -94,17 +99,6 @@ bro-intel-sync:
 #    - show_changes: True
 #    - append_if_not_found: True
 
-# Commenting out restart-bro since Seth wrote an Intel Whitelisting script:
-# https://github.com/sethhall/intel-ext
-#restart-bro:
-#    cmd.wait:
-#      - name: /opt/bro/bin/broctl stop && sleep 30 && /opt/bro/bin/broctl install && sleep 20 && /opt/bro/bin/broctl start
-#      - cwd: /
-#      - watch:
-#      - file: /opt/bro/share/bro/policy
-#      - file: /opt/bro/share/bro/intel
-#      - file: /opt/bro/share/bro/site
-
 ## End Bro Section ##
 
 ## Begin OSSEC Section ##
@@ -139,7 +133,7 @@ restart-ossec:
       - file: /var/ossec/rules
       - file: /var/ossec/etc/shared/agent.conf
       - file: /var/ossec/etc/local_decoder.xml
-      
+
 ## End OSSEC Section ##
 
 # Get rid of the old cron job that updates rules because we don't need it any more
