@@ -101,6 +101,17 @@ bro-intel-sync:
 
 ## End Bro Section ##
 
+## Enable Critical Stack Intel Client ##
+
+#csinstall:
+#  cmd.script:
+#    - source: salt://sensor/scripts
+#    - shell: /bin/bash
+#    - template: jinja
+
+## End Critical Stack Intel Client
+
+
 ## Begin OSSEC Section ##
 
 # Watch the OSSEC local_rules.xml file and restart when needed
