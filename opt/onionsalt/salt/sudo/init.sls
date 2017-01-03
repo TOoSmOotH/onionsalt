@@ -7,5 +7,5 @@
 # Make it so the sudo group can run sudo commands without a password since we are using key auth
 sudoers:
   file.append:
-    - name: /etc/sudoers
+    - name: /etc/sudoers.d/securityonion-onionsalt
     - text: "%sudo ALL=(ALL) NOPASSWD: ALL"
