@@ -1,9 +1,9 @@
 OnionSalt
 =========
 
-Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multiple [Security Onion](https://code.google.com/p/security-onion/) sensors.
+Welcome to the OnionSalt git repo. OnionSalt is a tool created to manage multiple [Security Onion](https://github.com/Security-Onion-Solutions/security-onion) sensors.
 
-For more details on using OnionSalt in your Security Onion deployment, please see the [Security Onion wiki](https://code.google.com/p/security-onion/wiki/Salt).
+For more details on using OnionSalt in your Security Onion deployment, please see the [Security Onion wiki](https://github.com/Security-Onion-Solutions/security-onion/wiki/Salt).
 
 ### Resources
 - Mike Reeves ([TOoSmOotH](https://twitter.com/TOoSmOotH)) BSides August 2014 Talk - [Scaling Security Onion to the Enterprise](https://www.youtube.com/watch?v=hHhxVQxj3aY)
