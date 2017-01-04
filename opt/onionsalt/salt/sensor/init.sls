@@ -12,9 +12,9 @@
 sensor:
   pkgrepo.managed:
     - humanname: SecurityOnion PPA
-    - name: deb http://ppa.launchpad.net/securityonion/stable/ubuntu precise main
-    - dist: precise
-    - file: /etc/apt/sources.list.d/securityonion-stable-precise.list
+    - name: deb http://ppa.launchpad.net/securityonion/stable/ubuntu trusty main
+    - dist: trusty
+    - file: /etc/apt/sources.list.d/securityonion-stable-trusty.list
     - keyid: E1E6759023F386C7
     - keyserver: keyserver.ubuntu.com
     - require_in:
