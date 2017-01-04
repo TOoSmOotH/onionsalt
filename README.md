@@ -11,6 +11,11 @@ For more details on using OnionSalt in your Security Onion deployment, please se
 
 ### Changelog
 
+Version 1.1.7:
+
+	- Migrate from Precise to Trusty
+	- use /etc/sudoers.d/ instead of directly editing /etc/sudoers
+	
 Version 1.1.6:
 
 	- Create /usr/local/lib/snort_dynamicrules if it doesn't already exist
